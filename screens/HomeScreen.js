@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 import {
   ChevronDownIcon,
@@ -21,13 +21,31 @@ import {
 } from "react-native";
 import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeaturedRow";
+import sanityclient from "../sanity";
 
 const HomeScreen = () => {
+  const [featuredCategories, setfeaturedCategories] = useState([]);
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
+  }, []);
+  useEffect(() => {
+    sanityclient
+      .fetch(
+        `
+      *[_type == "featured"] {
+        ...,
+        resturants[]->{
+          ...,
+          dishes[] ->
+        }
+      }`
+      )
+      .then((data) => {
+        setfeaturedCategories(data);
+      });
   }, []);
   return (
     <SafeAreaView style={styles.container} className="bg-white pt-6">
@@ -59,7 +77,7 @@ const HomeScreen = () => {
       </View>
       <ScrollView
         contentContainerStyle={{
-          paddingBottom: Platform.OS == "ios" ? 100 : 200,
+          paddingBottom: Platform.OS == "ios" ? 100 : 150,
         }}
         // contentInset={{ top: 0, left: 0, bottom: 100, right: 0 }}
         className="bg-gray-100"
@@ -67,21 +85,14 @@ const HomeScreen = () => {
         {/* categories */}
         <Categories />
         {/* feature row */}
-        <FeaturedRow
-          id="tst id"
-          title="Featured"
-          description="Paid placements from our partners"
-        />
-        <FeaturedRow
-          id="tst id"
-          title="Tasty Discounts"
-          description="Everyone's been enjoy these juicy discounts"
-        />
-        <FeaturedRow
-          id="tst id"
-          title="Offers near you"
-          description="Why not support your local restauratns tonight!"
-        />
+        {featuredCategories.map((category) => (
+          <FeaturedRow
+            key={category._id}
+            id={category._id}
+            title={category.name}
+            description={category.short_description}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
