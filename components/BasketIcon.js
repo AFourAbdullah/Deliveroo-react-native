@@ -13,7 +13,7 @@ const BasketIcon = () => {
   const items = useSelector(selectBaseketItems);
   const basketToal = useSelector(selectBaseketTotal);
   const navigation = useNavigation();
-
+  if (items.length == 0) return null;
   return (
     <View className="absolute bottom-10 z-50 w-full">
       <TouchableOpacity
