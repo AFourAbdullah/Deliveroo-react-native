@@ -7,18 +7,14 @@ import * as Progress from "react-native-progress";
 const PreparingOrderScreen = () => {
   const navigation = useNavigation();
 
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       navigation.navigate("Delivery");
-  //     }, 4000);
-  //   }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate("Delivery");
+    }, 4000);
+  }, []);
 
   return (
     <SafeAreaView className="bg-[#00ccbb] flex-1 justify-center items-center">
-      <Button
-        title="Go to Delivery"
-        onPress={() => navigation.navigate("DeliveryYY")}
-      />
       <Animatable.Image
         source={require("../assets/orderLoading.gif")}
         animation="slideInUp"
