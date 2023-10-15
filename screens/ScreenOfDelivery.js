@@ -1,5 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
+
+import { useNavigation } from "@react-navigation/native";
 import {
   Image,
   SafeAreaView,
@@ -7,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { XIcon } from "react-native-heroicons/solid";
+import { XCircleIcon } from "react-native-heroicons/solid";
 import { useSelector } from "react-redux";
 // import { selectRestaurant } from "../features/restaurantSlice";
 import * as Progress from "react-native-progress";
@@ -23,7 +24,7 @@ const DeliveryScreen = () => {
       <SafeAreaView className="z-50">
         <View className="flex-row justify-between items-center p-5">
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <XIcon color="white" size={30} />
+            <XCircleIcon color="white" size={30} />
           </TouchableOpacity>
           <Text className="font-light text-white text-lg">Order Help</Text>
         </View>

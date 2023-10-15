@@ -17,7 +17,7 @@ const PreparingOrderScreen = () => {
     <SafeAreaView className="bg-[#00ccbb] flex-1 justify-center items-center">
       <Button
         title="Go to Delivery"
-        onPress={() => navigation.navigate("Delivery")}
+        onPress={() => navigation.navigate("DeliveryYY")}
       />
       <Animatable.Image
         source={require("../assets/orderLoading.gif")}
